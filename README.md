@@ -541,19 +541,6 @@ Para documentar la infraestructura se organizaron los archivos de configuración
 
 [Ver running-config de SW1-ZABBIX](configuraciones/SW1-ZABBIX_running-config.txt)
 
-## 14.3 Comandos del router
-
-[Ver comandos del router](scripts/comandos-router.txt)
-
-## 14.4 Comandos del switch
-
-[Ver comandos del switch](scripts/comandos-switch.txt)
-
-## 14.5 Comandos del servidor Ubuntu
-
-[Ver comandos de Ubuntu](scripts/comandos-ubuntu.sh)
-
-**Nota:** Las comunidades y credenciales sensibles deben estar redactadas en los archivos públicos del repositorio.
 
 ---
 
