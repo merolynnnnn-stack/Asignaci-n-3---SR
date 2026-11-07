@@ -1,0 +1,114 @@
+R1-ZABBIX#show running startupconfig
+                       ^
+% Invalid input detected at '^' marker.
+
+R1-ZABBIX#show running
+Building configuration...
+
+Current configuration : 1380 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R1-ZABBIX
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+ip dhcp excluded-address 10.8.27.1 10.8.27.99
+ip dhcp excluded-address 10.8.27.201 10.8.27.254
+!
+ip dhcp pool LAN_ZABBIX
+ network 10.8.27.0 255.255.255.0
+ default-router 10.8.27.1
+ dns-server 8.8.8.8
+!
+!
+!
+no ip domain lookup
+no ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ description CONEXION_LAN_SW1_ZABBIX
+ ip address 10.8.27.1 255.255.255.0
+ ip nat inside
+ duplex full
+!
+interface FastEthernet1/0
+ description CONEXION_INTERNET_NAT
+ ip address dhcp
+ ip nat outside
+ duplex full
+!
+ip nat inside source list NAT_LAN interface FastEthernet1/0 overload
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list standard NAT_LAN
+ permit 10.8.27.0 0.0.0.255
+!
+access-list 10 permit 10.8.27.0 0.0.0.255
+!
+snmp-server community ZABBIX0827 RO 10
+snmp-server location LAB_GNS3_ITLA
+snmp-server contact Administrador_Redes
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+R1-ZABBIX#
+R1-ZABBIX#
+R1-ZABBIX#
