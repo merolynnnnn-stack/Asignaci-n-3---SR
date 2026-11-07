@@ -6,36 +6,35 @@
 **Asignatura:** Seguridad de Redes  
 **Estudiante:** Merolyn Mejía Abreu  
 **Matrícula:** 2025-0827  
-**Tipo de práctica:** Individual  
-**Herramientas:** GNS3, Cisco IOS, Ubuntu Server y Zabbix
+
 
 ---
 
-## 🎥 VIDEO DEMOSTRATIVO
+# VIDEO DEMOSTRATIVO
 
-**Demostración del funcionamiento completo de la infraestructura:**
+### Demostración del funcionamiento de la infraestructura
 
-[▶️ VER VIDEO DEMOSTRATIVO EN YOUTUBE](PEGAR_AQUI_ENLACE_YOUTUBE)
+https://youtu.be/fhHYuoa5eVI
 
-El video presenta las pruebas de direccionamiento IP, DHCP, configuración SNMP y monitoreo del router y switch mediante Zabbix.
+En este video se demuestra el funcionamiento de la topología, el direccionamiento IP, el servidor DHCP, las comunidades SNMP de solo lectura y el monitoreo del router y switch mediante Zabbix.
 
-**Duración:** Máximo 10 minutos.
+
 
 ---
 
-## ÍNDICE
+# ÍNDICE
 
 1. [Introducción](#1-introducción)
 2. [Propósito del laboratorio](#2-propósito-del-laboratorio)
 3. [Objetivos](#3-objetivos)
 4. [Herramientas utilizadas](#4-herramientas-utilizadas)
 5. [Descripción de la infraestructura](#5-descripción-de-la-infraestructura)
-6. [Diagrama de la topología](#6-diagrama-de-la-topología)
+6. [Diseño y diagrama de la topología](#6-diseño-y-diagrama-de-la-topología)
 7. [Direccionamiento IP](#7-direccionamiento-ip)
 8. [Configuración del router](#8-configuración-del-router)
 9. [Configuración del switch](#9-configuración-del-switch)
 10. [Configuración del servidor Ubuntu](#10-configuración-del-servidor-ubuntu)
-11. [Implementación de Zabbix](#11-implementación-de-zabbix)
+11. [Implementación y monitoreo en Zabbix](#11-implementación-y-monitoreo-en-zabbix)
 12. [Pruebas de funcionamiento](#12-pruebas-de-funcionamiento)
 13. [Medidas de seguridad implementadas](#13-medidas-de-seguridad-implementadas)
 14. [Scripts y archivos de configuración](#14-scripts-y-archivos-de-configuración)
@@ -44,47 +43,47 @@ El video presenta las pruebas de direccionamiento IP, DHCP, configuración SNMP 
 
 ---
 
-## 1. INTRODUCCIÓN
+# 1. INTRODUCCIÓN
 
-En esta práctica se desarrolló una infraestructura de red utilizando GNS3, con el objetivo de implementar servicios de direccionamiento IP, asignación automática de direcciones mediante DHCP y monitoreo de dispositivos utilizando SNMP.
+En esta práctica se implementó una infraestructura de red utilizando GNS3, con el objetivo de configurar el direccionamiento IP, un servidor DHCP y el monitoreo de dispositivos mediante el protocolo SNMP.
 
-Para supervisar la infraestructura se utilizó Zabbix, una herramienta de monitoreo que permite consultar información de dispositivos de red y visualizar su disponibilidad y rendimiento.
+Para la supervisión de la infraestructura se utilizó Zabbix, una herramienta que permite recopilar información de dispositivos de red y visualizar su disponibilidad y estadísticas.
 
-La práctica permitió comprobar el funcionamiento de un router Cisco, un switch Cisco y un servidor Ubuntu integrados en una misma red.
-
----
-
-## 2. PROPÓSITO DEL LABORATORIO
-
-El propósito principal de este laboratorio es implementar una infraestructura de red que permita administrar y monitorear dispositivos mediante Zabbix y SNMP.
-
-Se busca comprobar que los equipos tienen conectividad, que el servidor DHCP asigna direcciones IP correctamente y que Zabbix puede recopilar información del router y del switch.
-
-Desde el punto de vista de Seguridad de Redes, esta implementación permite conocer el estado de los dispositivos y detectar posibles problemas de disponibilidad o comunicación.
+El laboratorio está compuesto por un router Cisco, un switch Cisco y un servidor Ubuntu, los cuales trabajan en conjunto para demostrar el funcionamiento de los servicios de red y su monitoreo.
 
 ---
 
-## 3. OBJETIVOS
+# 2. PROPÓSITO DEL LABORATORIO
 
-### 3.1 Objetivo general
+El propósito de este laboratorio es implementar una infraestructura que permita monitorear dispositivos de red mediante Zabbix y SNMP.
+
+A través de esta práctica se busca comprobar que el router y el switch cuentan con direccionamiento IP, que el servidor DHCP asigna direcciones automáticamente y que Zabbix puede consultar información de ambos dispositivos.
+
+Desde el punto de vista de Seguridad de Redes, el monitoreo permite supervisar la disponibilidad de los equipos y detectar posibles problemas de conectividad.
+
+---
+
+# 3. OBJETIVOS
+
+## 3.1 Objetivo general
 
 Implementar una infraestructura de monitoreo utilizando Zabbix y SNMP para supervisar dispositivos Cisco dentro de una red LAN.
 
-### 3.2 Objetivos específicos
+## 3.2 Objetivos específicos
 
 - Configurar el direccionamiento IP del router y del switch.
-- Implementar un servidor DHCP en el router.
+- Implementar un servidor DHCP para la red LAN.
 - Configurar comunidades SNMP de solo lectura.
 - Configurar Ubuntu Server como cliente DHCP.
-- Instalar y utilizar Zabbix Server.
+- Instalar y configurar Zabbix Server.
 - Registrar el router y el switch en Zabbix.
-- Verificar la disponibilidad de los dispositivos.
-- Visualizar información y estadísticas mediante SNMP.
+- Verificar la disponibilidad SNMP de ambos dispositivos.
+- Visualizar información y estadísticas de monitoreo.
 - Documentar las configuraciones y pruebas realizadas.
 
 ---
 
-## 4. HERRAMIENTAS UTILIZADAS
+# 4. HERRAMIENTAS UTILIZADAS
 
 | Herramienta | Función |
 |---|---|
@@ -94,79 +93,106 @@ Implementar una infraestructura de monitoreo utilizando Zabbix y SNMP para super
 | Zabbix 7.0 | Monitoreo de los dispositivos |
 | SNMPv2c | Consulta de información de red |
 | DHCP | Asignación automática de direcciones IP |
-| VMware Workstation | Virtualización del servidor |
-| Apache y MySQL | Servicios utilizados por Zabbix |
+| VMware Workstation | Virtualización del servidor Ubuntu |
+| Apache | Servidor web para Zabbix |
+| MySQL | Base de datos de Zabbix |
 
 ---
 
-## 5. DESCRIPCIÓN DE LA INFRAESTRUCTURA
+# 5. DESCRIPCIÓN DE LA INFRAESTRUCTURA
 
-La infraestructura está formada por cuatro componentes principales.
+La infraestructura está compuesta por cuatro elementos principales.
 
-### NAT1
+## 5.1 NAT1
 
-Permite la conexión de la red del laboratorio hacia el exterior.
+Permite proporcionar conectividad externa al router mediante la red NAT de GNS3.
 
-### R1-ZABBIX
+## 5.2 Router R1-ZABBIX
 
-Router Cisco encargado del direccionamiento de la red LAN, la asignación de direcciones mediante DHCP y la comunicación con la red externa mediante NAT.
+Es el dispositivo encargado de proporcionar conectividad a la red LAN, asignar direcciones IP mediante DHCP y permitir la comunicación con la red externa mediante NAT.
 
-También tiene habilitado SNMP para permitir su monitoreo.
+También cuenta con SNMP para permitir su monitoreo.
 
-### SW1-ZABBIX
+## 5.3 Switch SW1-ZABBIX
 
-Switch Cisco que conecta los dispositivos de la LAN y cuenta con una dirección IP de administración.
+Permite conectar los dispositivos de la red LAN.
 
-Tiene habilitado SNMP de solo lectura para ser supervisado por Zabbix.
+Cuenta con una dirección IP de administración y una comunidad SNMP de solo lectura para ser supervisado por Zabbix.
 
-### Ubuntu-Zabbix
+## 5.4 Servidor Ubuntu-Zabbix
 
-Servidor Ubuntu que obtiene su dirección IP mediante DHCP y ejecuta Zabbix Server para monitorear los dispositivos Cisco.
+Es el servidor encargado de ejecutar Zabbix.
+
+Obtiene su dirección IP automáticamente mediante DHCP y recopila información del router y del switch utilizando SNMP.
 
 ---
 
-## 6. DIAGRAMA DE LA TOPOLOGÍA
+# 6. DISEÑO Y DIAGRAMA DE LA TOPOLOGÍA
+
+## 6.1 Diseño lógico de la infraestructura
+
+La topología está organizada de forma que el router conecta la red LAN con el nodo NAT, mientras que el switch proporciona conectividad al servidor Ubuntu.
+
+El servidor Zabbix se comunica con los dispositivos Cisco para recopilar información mediante SNMP.
 
 ```mermaid
 flowchart TD
-    NAT["NAT1 - Acceso externo"]
-    R1["R1-ZABBIX<br/>LAN: 10.8.27.1/24"]
-    SW1["SW1-ZABBIX<br/>VLAN 1: 10.8.27.2/24"]
-    ZBX["Ubuntu-Zabbix<br/>DHCP: 10.8.27.100/24"]
+    NAT["NAT1<br/>Conectividad externa"]
+    R1["R1-ZABBIX<br/>LAN: 10.8.27.1/24<br/>DHCP + NAT + SNMP"]
+    SW1["SW1-ZABBIX<br/>VLAN 1: 10.8.27.2/24<br/>SNMP"]
+    UB["Ubuntu-Zabbix<br/>ens33: 10.8.27.100/24<br/>Cliente DHCP + Zabbix"]
 
     NAT --> R1
     R1 --> SW1
-    SW1 --> ZBX
+    SW1 --> UB
 ```
 
-### Topología implementada en GNS3
+## 6.2 Topología implementada en GNS3
 
-![Topología de GNS3](imagenes/01_Topologia_GNS3.png)
+A continuación se presenta la topología desarrollada en GNS3.
 
-La imagen muestra las conexiones entre el nodo NAT, el router, el switch y el servidor Ubuntu.
+![Topología implementada en GNS3](Imagenes/image1.png)
+
+La imagen muestra las conexiones entre NAT1, R1-ZABBIX, SW1-ZABBIX y Ubuntu-Zabbix.
 
 ---
 
-## 7. DIRECCIONAMIENTO IP
+# 7. DIRECCIONAMIENTO IP
 
-Se utilizó el segmento 10.8.27.0/24, basado en la matrícula 2025-0827.
+Para el direccionamiento de la red LAN se utilizó el segmento 10.8.27.0/24, basado en la matrícula 2025-0827.
 
 | Dispositivo | Interfaz | Dirección IP | Función |
 |---|---|---|---|
-| R1-ZABBIX | FastEthernet0/0 | 10.8.27.1/24 | Gateway LAN |
+| R1-ZABBIX | FastEthernet0/0 | 10.8.27.1/24 | Puerta de enlace LAN |
 | R1-ZABBIX | FastEthernet1/0 | 192.168.42.90/24 | Conexión NAT |
 | SW1-ZABBIX | VLAN 1 | 10.8.27.2/24 | Administración |
 | Ubuntu-Zabbix | ens33 | 10.8.27.100/24 | Cliente DHCP |
 
-La dirección WAN del router es dinámica y puede cambiar al renovar DHCP.
+La dirección WAN del router es dinámica, por lo que puede cambiar al renovar su concesión DHCP.
 
 ---
 
-## 8. CONFIGURACIÓN DEL ROUTER
+# 8. CONFIGURACIÓN DEL ROUTER
 
-### 8.1 Direccionamiento IP
+## 8.1 Direccionamiento IP del router
 
-El router utiliza FastEthernet0/0 para conectarse a la LAN y FastEthernet1/0 para conectarse a NAT.
+El router utiliza la interfaz FastEthernet0/0 para conectarse a la red LAN y FastEthernet1/0 para conectarse al nodo NAT.
+
+Configuración utilizada:
+
+```cisco
+interface FastEthernet0/0
+ description CONEXION_LAN_SW1_ZABBIX
+ ip address 10.8.27.1 255.255.255.0
+ ip nat inside
+ duplex full
+
+interface FastEthernet1/0
+ description CONEXION_INTERNET_NAT
+ ip address dhcp
+ ip nat outside
+ duplex full
+```
 
 Comando de verificación:
 
@@ -174,15 +200,15 @@ Comando de verificación:
 show ip interface brief
 ```
 
-**Evidencia:**
+### Evidencia del direccionamiento
 
-![Direccionamiento del router](imagenes/02_Router_Direccionamiento.png)
+![Direccionamiento IP del router](Imagenes/image2.png)
 
-Se comprobó que las dos interfaces se encontraban en estado up/up.
+Se comprobó que ambas interfaces estaban activas y funcionando correctamente.
 
-### 8.2 Servidor DHCP
+## 8.2 Configuración del servidor DHCP
 
-El router tiene configurado el pool LAN_ZABBIX para entregar direcciones IP a los dispositivos de la red.
+El router fue configurado para asignar automáticamente direcciones IP a los dispositivos de la LAN.
 
 Configuración aplicada:
 
@@ -203,43 +229,69 @@ show ip dhcp pool
 show ip dhcp binding
 ```
 
-**Evidencia:**
+### Evidencia del servidor DHCP
 
-![Servidor DHCP](imagenes/03_Router_DHCP.png)
+![Servidor DHCP del router](Imagenes/image3.png)
 
-El comando show ip dhcp binding confirmó la asignación automática de la dirección 10.8.27.100 al servidor Ubuntu.
+Mediante el comando `show ip dhcp binding` se comprobó que el router asignó automáticamente la dirección IP 10.8.27.100 al servidor Ubuntu.
 
-### 8.3 Comunidad SNMP de solo lectura
+## 8.3 Configuración SNMP del router
 
-Se configuró SNMPv2c para consultar información del router.
+Se configuró SNMPv2c para permitir la recopilación de información del router.
 
-La comunidad utiliza permisos RO (Read Only), que permiten realizar consultas sin otorgar permisos de escritura.
+La comunidad utiliza permisos de solo lectura, identificados mediante `RO`.
 
-La configuración incluye una ACL que restringe las consultas a la red 10.8.27.0/24.
+También se configuró una ACL para restringir las consultas a la red LAN.
+
+Configuración de referencia con la comunidad redactada:
+
+```cisco
+access-list 10 permit 10.8.27.0 0.0.0.255
+
+snmp-server community COMUNIDAD_SNMP_REDACTADA RO 10
+snmp-server location LAB_GNS3_ITLA
+snmp-server contact Administrador_Redes
+```
 
 Comandos de verificación:
 
 ```cisco
-show running-config | include snmp-server
-show access-lists 10
 show snmp
+show access-lists 10
 ```
 
-**Evidencia:**
+### Evidencia SNMP del router
 
-![SNMP del router](imagenes/04_Router_SNMP.png)
+![SNMP del router](Imagenes/image4.png)
 
-Se comprobaron solicitudes y respuestas SNMP, sin errores de comunidad.
+Se verificó que el router recibía solicitudes SNMP y enviaba respuestas correctamente.
+
+## 8.4 Configuración NAT del router
+
+Para proporcionar conectividad externa a la LAN, se implementó NAT con sobrecarga.
+
+Configuración aplicada:
+
+```cisco
+ip access-list standard NAT_LAN
+ permit 10.8.27.0 0.0.0.255
+
+ip nat inside source list NAT_LAN interface FastEthernet1/0 overload
+```
+
+Comando de verificación:
+
+```cisco
+show ip nat statistics
+```
 
 ---
 
-## 9. CONFIGURACIÓN DEL SWITCH
+# 9. CONFIGURACIÓN DEL SWITCH
 
-### 9.1 Direccionamiento IP
+## 9.1 Direccionamiento IP del switch
 
-Se configuró la interfaz VLAN 1 con la dirección IP 10.8.27.2/24.
-
-La puerta de enlace del switch es 10.8.27.1.
+El switch utiliza la interfaz VLAN 1 como interfaz de administración.
 
 Configuración aplicada:
 
@@ -258,44 +310,51 @@ show ip interface brief
 show vlan brief
 ```
 
-**Evidencia:**
+### Evidencia del direccionamiento
 
-![Direccionamiento del switch](imagenes/05_Switch_Direccionamiento.png)
+![Direccionamiento IP del switch](Imagenes/image5.png)
 
-Se verificó que VLAN 1 estaba activa y que las interfaces conectadas funcionaban correctamente.
+Se comprobó que la interfaz VLAN 1 estaba activa con la dirección 10.8.27.2.
 
-### 9.2 Comunidad SNMP
+También se verificó el estado de las interfaces GigabitEthernet conectadas.
 
-El switch utiliza SNMPv2c con una comunidad de solo lectura y una ACL que permite consultas desde la red LAN.
+## 9.2 Configuración SNMP del switch
 
-Comandos de verificación:
+El switch fue configurado con SNMPv2c y una comunidad de solo lectura.
+
+Configuración de referencia con la comunidad redactada:
 
 ```cisco
-show running-config | include snmp-server
+access-list 10 permit 10.8.27.0 0.0.0.255
+
+snmp-server community COMUNIDAD_SNMP_REDACTADA RO 10
+snmp-server location LAB_GNS3_ITLA
+snmp-server contact Administrador_Redes
+```
+
+Comando de verificación:
+
+```cisco
 show snmp
 ```
 
-**Evidencia:**
+### Evidencia SNMP del switch
 
-![SNMP del switch](imagenes/06_Switch_SNMP.png)
+![SNMP del switch](Imagenes/image6.png)
 
-El switch registró solicitudes SNMP y respuestas enviadas, confirmando el funcionamiento del protocolo.
+Se comprobó que el switch recibía consultas SNMP y enviaba respuestas, confirmando el funcionamiento del protocolo.
 
 ---
 
-## 10. CONFIGURACIÓN DEL SERVIDOR UBUNTU
+# 10. CONFIGURACIÓN DEL SERVIDOR UBUNTU
 
-### 10.1 Cliente DHCP
+## 10.1 Cliente DHCP
 
-Se utilizó Ubuntu Server 24.04 LTS como sistema operativo del servidor de monitoreo.
+Se utilizó Ubuntu Server 24.04 LTS para ejecutar Zabbix Server.
 
 La interfaz ens33 fue configurada para obtener automáticamente una dirección IP mediante DHCP.
 
-El servidor recibió:
-
-- Dirección IP: 10.8.27.100
-- Máscara: 255.255.255.0
-- Gateway LAN: 10.8.27.1
+El servidor recibió la dirección 10.8.27.100/24 desde el router.
 
 Comandos de verificación:
 
@@ -304,59 +363,69 @@ ip -4 addr show ens33
 ip route
 ```
 
-**Evidencia:**
+### Evidencia del cliente DHCP
 
-![Ubuntu DHCP](imagenes/07_Ubuntu_DHCP.png)
+![Cliente DHCP de Ubuntu](Imagenes/image7.png)
 
-### 10.2 Pruebas de conectividad
+Se comprobó que el servidor Ubuntu tenía asignada una dirección IP perteneciente a la red LAN.
 
-Desde Ubuntu se verificó la comunicación con el router y el switch.
+## 10.2 Pruebas de conectividad
+
+Se realizaron pruebas de comunicación desde Ubuntu hacia el router y el switch.
 
 ```bash
 ping -c 3 10.8.27.1
 ping -c 3 10.8.27.2
 ```
 
-Estas pruebas permiten comprobar la conectividad entre el servidor y los dispositivos monitoreados.
+Estas pruebas permiten verificar la comunicación entre los dispositivos de la infraestructura.
 
-### 10.3 Servicio Zabbix
+## 10.3 Verificación del servicio Zabbix
 
-Se verificó el funcionamiento del servicio de monitoreo mediante:
+Se verificó el estado del servicio de monitoreo.
 
 ```bash
 sudo systemctl status zabbix-server
 ```
 
-El servidor también utiliza Apache y MySQL para proporcionar la interfaz web y almacenar los datos de monitoreo.
+También se utilizaron Apache y MySQL para el funcionamiento de la plataforma web y su base de datos.
 
 ---
 
-## 11. IMPLEMENTACIÓN DE ZABBIX
+# 11. IMPLEMENTACIÓN Y MONITOREO EN ZABBIX
 
-### 11.1 Registro de dispositivos
+## 11.1 Registro de dispositivos
 
-En Zabbix se registraron los siguientes hosts:
+En Zabbix se registraron los dispositivos Cisco como hosts de monitoreo.
 
-| Host | IP | Protocolo | Plantilla |
+| Host | Dirección IP | Protocolo | Plantilla |
 |---|---|---|---|
 | R1-zabbix | 10.8.27.1 | SNMPv2 | Cisco IOS by SNMP |
 | SW1-zabbix | 10.8.27.2 | SNMPv2 | Cisco IOS by SNMP |
 
-Ambos dispositivos pertenecen al grupo Network devices.
+Ambos dispositivos fueron agregados al grupo `Network devices`.
 
-### 11.2 Disponibilidad SNMP
+## 11.2 Verificación de disponibilidad SNMP
 
-Desde Data collection > Hosts se comprobó que los dos dispositivos tenían el indicador SNMP en verde.
+Desde la sección:
 
-**Evidencia:**
+**Data collection > Hosts**
 
-![Hosts monitoreados](imagenes/08_Zabbix_Hosts.png)
+Se comprobó que los dispositivos tenían disponibilidad SNMP.
 
-### 11.3 Monitoreo del router
+### Evidencia de hosts monitoreados
 
-En Monitoring > Latest data se consultó la información recopilada del router.
+![Disponibilidad SNMP en Zabbix](Imagenes/image8.png)
 
-Entre los datos disponibles se observaron:
+Ambos dispositivos aparecieron con el indicador SNMP en verde, confirmando que Zabbix podía comunicarse con ellos.
+
+## 11.3 Monitoreo del router R1-ZABBIX
+
+Desde:
+
+**Monitoring > Latest data > R1-zabbix**
+
+Se verificaron diferentes datos del router, incluyendo:
 
 - Nombre del sistema.
 - Descripción del dispositivo.
@@ -366,132 +435,152 @@ Entre los datos disponibles se observaron:
 - Estado de conectividad ICMP.
 - Disponibilidad SNMP.
 
-**Evidencia:**
+### Evidencia del monitoreo del router
 
-![Datos del router](imagenes/09_Zabbix_Router.png)
+![Datos SNMP del router en Zabbix](Imagenes/image9.png)
 
-### 11.4 Monitoreo del switch
+La información recopilada permitió comprobar que Zabbix estaba monitoreando correctamente el router.
 
-También se verificó la información SNMP del switch.
+## 11.4 Monitoreo del switch SW1-ZABBIX
 
-Zabbix permitió consultar:
+Desde:
+
+**Monitoring > Latest data > SW1-zabbix**
+
+Se verificó la información recopilada del switch.
+
+Entre los datos disponibles se encontraron:
 
 - Nombre del dispositivo.
 - Ubicación.
 - Contacto administrativo.
 - Tiempo de actividad.
-- Estado de disponibilidad.
+- Disponibilidad del dispositivo.
 - Estadísticas de interfaces.
 
-**Evidencia:**
+### Evidencia del monitoreo del switch
 
-![Datos del switch](imagenes/10_Zabbix_Switch.png)
+![Datos SNMP del switch en Zabbix](Imagenes/image10.png)
 
-### 11.5 Gráficas de monitoreo
+Se comprobó que Zabbix recibía información del switch mediante SNMP.
 
-Zabbix permite visualizar gráficas de disponibilidad y otras métricas recopiladas.
+## 11.5 Gráficas de monitoreo
+
+Zabbix permite representar gráficamente los datos recopilados de los dispositivos.
 
 En esta práctica se verificó una gráfica de disponibilidad ICMP del router.
 
-**Evidencia:**
+### Evidencia de la gráfica
 
-![Gráfica Zabbix](imagenes/11_Zabbix_Grafica.png)
+![Gráfica de disponibilidad en Zabbix](Imagenes/image11.png)
+
+Esta gráfica permite observar el estado de conectividad del dispositivo durante el período seleccionado.
 
 ---
 
-## 12. PRUEBAS DE FUNCIONAMIENTO
+# 12. PRUEBAS DE FUNCIONAMIENTO
 
-| Prueba | Resultado |
+Durante la práctica se realizaron pruebas para comprobar que la infraestructura cumplía los requisitos solicitados.
+
+| Prueba realizada | Resultado |
 |---|---|
-| Interfaces del router | Correcto |
-| Dirección IP del switch | Correcto |
-| Pool DHCP | Configurado |
-| Asignación DHCP a Ubuntu | Exitosa |
-| SNMP del router | Funcional |
-| SNMP del switch | Funcional |
-| Disponibilidad SNMP en Zabbix | Ambos dispositivos disponibles |
+| Direccionamiento IP del router | Correcto |
+| Direccionamiento IP del switch | Correcto |
+| Interfaces LAN activas | Correcto |
+| Servidor DHCP del router | Funcional |
+| Asignación de IP a Ubuntu | Exitosa |
+| Comunidad SNMP de solo lectura en R1 | Configurada |
+| Comunidad SNMP de solo lectura en SW1 | Configurada |
+| Consultas SNMP al router | Exitosas |
+| Consultas SNMP al switch | Exitosas |
+| Registro de dispositivos en Zabbix | Completado |
+| Disponibilidad SNMP en Zabbix | Ambos disponibles |
 | Datos SNMP del router | Recopilados |
 | Datos SNMP del switch | Recopilados |
 | Gráfica de disponibilidad | Visualizada |
 
-Las pruebas realizadas permitieron comprobar el cumplimiento de los objetivos principales del laboratorio.
+Los resultados obtenidos demuestran el funcionamiento de los servicios implementados.
 
 ---
 
-## 13. MEDIDAS DE SEGURIDAD IMPLEMENTADAS
+# 13. MEDIDAS DE SEGURIDAD IMPLEMENTADAS
 
-### 13.1 SNMP de solo lectura
+## 13.1 SNMP de solo lectura
 
-Las comunidades SNMP fueron configuradas con permisos RO para evitar modificaciones mediante dicha comunidad.
+Las comunidades SNMP fueron configuradas con permisos `RO`, evitando modificaciones mediante dichas comunidades.
 
-### 13.2 Restricción mediante ACL
+## 13.2 Restricción de acceso mediante ACL
 
-Se utilizó una lista de control de acceso para permitir consultas SNMP desde la red 10.8.27.0/24.
+Se configuró una ACL que limita las consultas SNMP a la red 10.8.27.0/24.
 
-### 13.3 Separación de funciones
+## 13.3 Separación de funciones
 
-El router proporciona direccionamiento y DHCP, mientras que el servidor Ubuntu realiza el monitoreo mediante Zabbix.
+El router proporciona conectividad y DHCP, mientras que Ubuntu ejecuta Zabbix para realizar el monitoreo.
 
-### 13.4 Supervisión de disponibilidad
+## 13.4 Supervisión de disponibilidad
 
-El monitoreo permite identificar problemas de comunicación o indisponibilidad de los dispositivos.
+El monitoreo de los dispositivos permite identificar problemas de conectividad y disponibilidad.
 
-**Nota de seguridad:** SNMPv2c no cifra la comunidad ni los datos transmitidos. En entornos de producción se recomienda utilizar SNMPv3.
+## 13.5 Consideraciones de seguridad
+
+SNMPv2c no proporciona cifrado de la comunidad ni de la información transmitida.
+
+Para entornos de producción se recomienda utilizar SNMPv3, debido a sus mecanismos de autenticación y cifrado.
 
 ---
 
-## 14. SCRIPTS Y ARCHIVOS DE CONFIGURACIÓN
+# 14. SCRIPTS Y ARCHIVOS DE CONFIGURACIÓN
 
-Los archivos utilizados para documentar y verificar la infraestructura se encuentran organizados en las siguientes carpetas.
+Para documentar la infraestructura se organizaron los archivos de configuración y los comandos utilizados.
 
-### 14.1 Running-config del router
+## 14.1 Running-config del router
 
-[Ver configuración del router](configuraciones/R1-ZABBIX_running-config.txt)
+[Ver running-config de R1-ZABBIX](configuraciones/R1-ZABBIX_running-config.txt)
 
-### 14.2 Running-config del switch
+## 14.2 Running-config del switch
 
-[Ver configuración del switch](configuraciones/SW1-ZABBIX_running-config.txt)
+[Ver running-config de SW1-ZABBIX](configuraciones/SW1-ZABBIX_running-config.txt)
 
-### 14.3 Comandos del router
+## 14.3 Comandos del router
 
 [Ver comandos del router](scripts/comandos-router.txt)
 
-### 14.4 Comandos del switch
+## 14.4 Comandos del switch
 
 [Ver comandos del switch](scripts/comandos-switch.txt)
 
-### 14.5 Comandos de Ubuntu
+## 14.5 Comandos del servidor Ubuntu
 
 [Ver comandos de Ubuntu](scripts/comandos-ubuntu.sh)
 
-Los archivos contienen los comandos de configuración o verificación utilizados en la práctica, según corresponda.
+**Nota:** Las comunidades y credenciales sensibles deben estar redactadas en los archivos públicos del repositorio.
 
 ---
 
-## 15. RESULTADOS OBTENIDOS
+# 15. RESULTADOS OBTENIDOS
 
-Durante el desarrollo del laboratorio se lograron los siguientes resultados:
+Durante el desarrollo del laboratorio se obtuvieron los siguientes resultados:
 
-1. Se configuró el direccionamiento IP de la infraestructura.
-2. Se implementó un servidor DHCP en el router.
-3. Ubuntu obtuvo una dirección IP automáticamente.
-4. Se configuró SNMP de solo lectura en el router y switch.
-5. Se instaló y configuró Zabbix Server.
-6. Se registraron los dispositivos Cisco en Zabbix.
-7. Se comprobó la disponibilidad SNMP de ambos dispositivos.
-8. Se visualizaron métricas y estadísticas de monitoreo.
-9. Se verificó una gráfica de disponibilidad.
-10. Se documentó la infraestructura y sus pruebas.
+1. Se implementó una infraestructura de red en GNS3.
+2. Se configuró el direccionamiento IP del router y del switch.
+3. Se implementó un servidor DHCP para la red LAN.
+4. Ubuntu obtuvo automáticamente la dirección IP 10.8.27.100.
+5. Se configuraron comunidades SNMP de solo lectura.
+6. Se verificó el funcionamiento de SNMP en ambos dispositivos Cisco.
+7. Se instaló y configuró Zabbix Server.
+8. Se registraron el router y el switch como hosts.
+9. Se comprobó la disponibilidad SNMP de ambos dispositivos.
+10. Se visualizaron datos y gráficas de monitoreo.
 
 ---
 
-## 16. CONCLUSIÓN
+# 16. CONCLUSIÓN
 
-Esta práctica permitió implementar una infraestructura de red utilizando GNS3, Cisco IOS, Ubuntu Server y Zabbix.
+Esta práctica permitió implementar una infraestructura de monitoreo de red utilizando GNS3, Cisco IOS, Ubuntu Server y Zabbix.
 
-Se comprobó el funcionamiento del direccionamiento IP, la asignación automática de direcciones mediante DHCP y la configuración de SNMP de solo lectura en los dispositivos Cisco.
+Se comprobó el funcionamiento del direccionamiento IP, la asignación automática de direcciones mediante DHCP y las comunidades SNMP de solo lectura configuradas en los dispositivos Cisco.
 
-Además, mediante Zabbix fue posible monitorear el router y el switch, consultar información de sus sistemas y verificar su disponibilidad.
+También se logró integrar el servidor Ubuntu con Zabbix para supervisar el router y el switch, consultar sus datos y verificar su disponibilidad.
 
 En conclusión, el laboratorio permitió comprender la importancia del monitoreo de red como herramienta para la administración, supervisión y seguridad de una infraestructura tecnológica.
 
